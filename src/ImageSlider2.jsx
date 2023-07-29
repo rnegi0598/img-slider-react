@@ -1,9 +1,24 @@
 /* eslint-disable react/prop-types */
-import {useState} from 'react'
+import {useState,useEffect,useRef} from 'react'
 
 // eslint-disable-next-line react/prop-types
 const ImageSlider2 = ({slides}) => {
     const [currentInd,setCurrentInt]=useState(0);
+    const timeRef=useRef(null);
+
+
+    useEffect(()=>{
+        if(timeRef.current){
+            clearTimeout(timeRef.current);
+        }
+        timeRef.current=setTimeout(()=>{
+            gotoNext();
+        },3000);
+
+        return ()=>{
+            clearTimeout(timeRef.current);
+        }
+    })
 
     const gotoPrev=()=>{
         const nextInd=currentInd===0?slides.length-1:currentInd-1;

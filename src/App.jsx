@@ -1,5 +1,5 @@
-import ImageSlider from "./ImageSlider";
-// import ImageSlider2 from "./ImageSlider2";
+// import ImageSlider from "./ImageSlider";
+import ImageSlider2 from "./ImageSlider2";
 function App() {
   const slides = [
     { url: "http://localhost:5173/image-1.jpg", title: "Beach" },
@@ -11,21 +11,21 @@ function App() {
   const containerStyles = { width: "90%", height: "50vh", margin: "0 auto", };
   return (
     <>
-      <div style={{textAlign:'center',width:'100vw'}} >
+      {/* <div style={{textAlign:'center',width:'100vw'}} >
         <h1>Img slider using backgroundImage</h1>
         <div style={containerStyles}>
           <ImageSlider slides={slides} parentWidth={700} />
          
         </div>
-      </div>
+      </div> */}
 
-      {/* <div style={{textAlign:'center',width:'100vw'}} >
+      <div style={{textAlign:'center',width:'100vw'}} >
       <h1>Img slider using img tag</h1>
         <div style={containerStyles}>
-          <ImageSlider2 slides={slides} />
+          <ImageSlider2 slides={slides} parentWidth={600}/>
          
         </div>
-      </div> */}
+      </div>
     </>
   );
 }
