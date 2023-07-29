@@ -2,7 +2,7 @@
 import { useState } from "react";
 
 // eslint-disable-next-line react/prop-types
-const ImageSlider = ({ slides }) => {
+const ImageSlider = ({ slides, parentWidth }) => {
   const [currentInd, setCurrentInd] = useState(0);
 
   const gotoPrevious = () => {
@@ -15,13 +15,54 @@ const ImageSlider = ({ slides }) => {
     setCurrentInd(nextInd);
   };
 
-  const gotoSlide=(ind)=>{
-      setCurrentInd(ind);
+  const gotoSlide = (ind) => {
+    setCurrentInd(ind);
+  };
+
+  // styles start
+  const slideStyles = {
+    width: parentWidth,
+    height: "100%",
+    borderRadius: "10px",
+    backgroudPosition: "center",
+    backgroundSize: "cover",
+  };
+  const getSlideStylesWithBackground = (slideInd) => {
+    return {
+      ...slideStyles,
+      backgroundImage: `url(${slides[slideInd].url})`,
+    };
+  };
+
+  const sliderContainerStyles = {
+    height: "100%",
+    position: "relative",
+    
+  };
+  const sliderContainerStylesWithWidth = {
+    ...sliderContainerStyles,
+    width: parentWidth * slides.length,
+    display: "flex",
+    transform:`translate(-${currentInd*parentWidth}px)`,
+    transition:'all ease-in-out 1s',
+  };
+
+  const slideContainerOverflowStyles={
+    margin:'0 auto',
+    position:'relative',
+    width:parentWidth,
+    height:'100%',
+    overflow:'hidden'
+
   }
-  
+  // styles end
+
   return (
     <div style={sliderContainerStyles}>
-      {/* left arrow */}
+      
+      {/* slider  */}
+      <div style={slideContainerOverflowStyles}>
+        {/* left arrow */}
       <div style={leftArrowStyles} onClick={gotoPrevious}>
         &larr;
       </div>
@@ -29,23 +70,35 @@ const ImageSlider = ({ slides }) => {
       <div style={rightArrowStyles} onClick={gotoNext}>
         &rarr;
       </div>
-      {/* slider  */}
-      <div style={{...slideStyles,backgroundImage: `url(${slides[currentInd].url})`,}}>
+        <div style={sliderContainerStylesWithWidth}>
+          {slides.map((_, slideInd) => {
+            return (
+              <div
+                key={slideInd}
+                style={getSlideStylesWithBackground(slideInd)}
+              ></div>
+            );
+          })}
+        </div>
       </div>
+
       {/* slide navigator */}
       <div style={dotContainerStyles}>
-      
         {slides.map((slide, slideInd) => {
-             
-          return <div
-          style={{...dotStyles,color:slideInd===currentInd?'grey':'black'}}
-          key={slideInd}
-          onClick={() => {
-            gotoSlide(slideInd);
-          }}
-        >
-          &bull;
-        </div>
+          return (
+            <div
+              style={{
+                ...dotStyles,
+                color: slideInd === currentInd ? "grey" : "black",
+              }}
+              key={slideInd}
+              onClick={() => {
+                gotoSlide(slideInd);
+              }}
+            >
+              &bull;
+            </div>
+          );
         })}
       </div>
     </div>
@@ -53,23 +106,6 @@ const ImageSlider = ({ slides }) => {
 };
 
 export default ImageSlider;
-
-
-
-const sliderContainerStyles = { 
-  height: "100%", 
-  position: "relative" 
-};
-
-const slideStyles = {
-  width: "100%",
-  height: "100%",
-  borderRadius: "10px",
-  backgroudPosition: "center",
-  backgroundSize: "cover",
- 
- 
-};
 
 const leftArrowStyles = {
   position: "absolute",
@@ -93,13 +129,13 @@ const rightArrowStyles = {
   cursor: "pointer",
 };
 
-const dotContainerStyles={
-  display:'flex',
-  justifyContent:'center'
+const dotContainerStyles = {
+  display: "flex",
+  justifyContent: "center",
 };
 
-const dotStyles={
-  margin:'0 3px',
-  cursor:'pointer',
-  fontSize:'40px',
+const dotStyles = {
+  margin: "0 3px",
+  cursor: "pointer",
+  fontSize: "40px",
 };

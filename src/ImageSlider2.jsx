@@ -25,7 +25,7 @@ const ImageSlider2 = ({slides}) => {
         <div style={rightArrowStyles} onClick={gotoNext} >&rarr;</div>
 
         <div style={sliderStyles}>
-            <img style={imgStyles} src={slides[currentInd].url} alt={slides[currentInd].title} />
+            <img  style={imgStyles} src={slides[currentInd].url} alt={slides[currentInd].title} />
         </div>
         <div style={dotContainerStyles} >
             {
