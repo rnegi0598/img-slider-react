@@ -22,7 +22,7 @@ function App() {
       <div style={{textAlign:'center',width:'100vw'}} >
       <h1>Img slider using img tag</h1>
         <div style={containerStyles}>
-          <ImageSlider2 slides={slides} parentWidth={600}/>
+          <ImageSlider2 slides={slides} parentWidth={800}/>
          
         </div>
       </div>
