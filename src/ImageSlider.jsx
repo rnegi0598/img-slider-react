@@ -1,9 +1,22 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // eslint-disable-next-line react/prop-types
 const ImageSlider = ({ slides, parentWidth }) => {
   const [currentInd, setCurrentInd] = useState(0);
+  const timeRef = useRef(null);
+
+  useEffect(() => {
+    if (timeRef.current) {
+      clearTimeout(timeRef);
+    }
+    timeRef.current = setTimeout(() => {
+      gotoNext();
+    }, 3000);
+    return ()=>{
+      clearTimeout(timeRef.current);
+    }
+  });
 
   const gotoPrevious = () => {
     const nextInd = currentInd == 0 ? slides.length - 1 : currentInd - 1;
@@ -37,39 +50,36 @@ const ImageSlider = ({ slides, parentWidth }) => {
   const sliderContainerStyles = {
     height: "100%",
     position: "relative",
-    
   };
   const sliderContainerStylesWithWidth = {
     ...sliderContainerStyles,
     width: parentWidth * slides.length,
     display: "flex",
-    transform:`translate(-${currentInd*parentWidth}px)`,
-    transition:'all ease-in-out 1s',
+    transform: `translate(-${currentInd * parentWidth}px)`,
+    transition: "all ease-in-out 1s",
   };
 
-  const slideContainerOverflowStyles={
-    margin:'0 auto',
-    position:'relative',
-    width:parentWidth,
-    height:'100%',
-    overflow:'hidden'
-
-  }
+  const slideContainerOverflowStyles = {
+    margin: "0 auto",
+    position: "relative",
+    width: parentWidth,
+    height: "100%",
+    overflow: "hidden",
+  };
   // styles end
 
   return (
     <div style={sliderContainerStyles}>
-      
       {/* slider  */}
       <div style={slideContainerOverflowStyles}>
         {/* left arrow */}
-      <div style={leftArrowStyles} onClick={gotoPrevious}>
-        &larr;
-      </div>
-      {/* right arrow */}
-      <div style={rightArrowStyles} onClick={gotoNext}>
-        &rarr;
-      </div>
+        <div style={leftArrowStyles} onClick={gotoPrevious}>
+          &larr;
+        </div>
+        {/* right arrow */}
+        <div style={rightArrowStyles} onClick={gotoNext}>
+          &rarr;
+        </div>
         <div style={sliderContainerStylesWithWidth}>
           {slides.map((_, slideInd) => {
             return (
