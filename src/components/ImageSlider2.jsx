@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
+
 import { useState, useEffect, useRef } from "react";
 
-// eslint-disable-next-line react/prop-types
 const ImageSlider2 = ({ slides, parentWidth }) => {
   const [currentInd, setCurrentInt] = useState(0);
   const timeRef = useRef(null);
@@ -103,7 +103,7 @@ const ImageSlider2 = ({ slides, parentWidth }) => {
   );
 };
 
-export default ImageSlider2;
+
 
 const sliderWrapperStyles = {
   height: "100%",
@@ -146,3 +146,6 @@ const dotStyles = {
   fontSize: "40px",
   cursor: "pointer",
 };
+
+
+export default ImageSlider2;
